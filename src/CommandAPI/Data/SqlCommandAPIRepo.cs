@@ -13,12 +13,17 @@ namespace CommandAPI.Data
         }
         void ICommandAPIRepo.CreateCommand(Command cmd)
         {
-            throw new System.NotImplementedException();
+            if (cmd == null)
+            {
+                throw new System.ArgumentNullException(nameof(cmd));
+            }
+            _context.CommandItems.Add(cmd);
         }
 
         void ICommandAPIRepo.DeleteCommand(Command cmd)
         {
-            throw new System.NotImplementedException();
+            if (cmd == null) throw new System.ArgumentNullException(nameof(cmd));
+            _context.CommandItems.Remove(cmd);
         }
 
         public IEnumerable<Command> GetAllCommands()
@@ -33,12 +38,12 @@ namespace CommandAPI.Data
 
         bool ICommandAPIRepo.SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return (_context.SaveChanges() >= 0);
         }
 
         void ICommandAPIRepo.UpdateCommand(Command cmd)
         {
-            throw new System.NotImplementedException();
+            // We don't need to do anything here
         }
     }
 }
